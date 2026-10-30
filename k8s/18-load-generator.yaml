@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: load-generator
+  namespace: music-shop
+  labels:
+    app.kubernetes.io/name: load-generator
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/part-of: music-store
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app.kubernetes.io/name: load-generator }
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: load-generator
+        app.kubernetes.io/version: "1.0.0"
+        app.kubernetes.io/part-of: music-store
+    spec:
+      containers:
+        - name: load-generator
+          image: musicshop/load-generator:1.0.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: API_GATEWAY_URL
+              value: http://api-gateway:3000
+            - name: INTERVAL_MS
+              value: "3000"
+          resources:
+            requests: { cpu: 25m, memory: 64Mi }
+            limits: { memory: 128Mi }

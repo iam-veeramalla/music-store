@@ -1,0 +1,8 @@
+# Apply AFTER installing the Dash0 operator (see README).
+# Enables Dash0 monitoring + auto-instrumentation for the music-shop namespace.
+apiVersion: operator.dash0.com/v1alpha1
+kind: Dash0Monitoring
+metadata:
+  name: dash0-monitoring-resource
+  namespace: music-shop
+spec: {}

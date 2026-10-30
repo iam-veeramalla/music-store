@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: music-shop
+  labels:
+    app.kubernetes.io/name: redis
+    app.kubernetes.io/part-of: music-store
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app.kubernetes.io/name: redis }
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: redis
+        app.kubernetes.io/part-of: music-store
+    spec:
+      containers:
+        - name: redis
+          image: redis:7
+          ports: [{ containerPort: 6379 }]
+          resources:
+            requests: { cpu: 50m, memory: 64Mi }
+            limits: { memory: 128Mi }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: music-shop
+spec:
+  selector: { app.kubernetes.io/name: redis }
+  ports: [{ port: 6379 }]

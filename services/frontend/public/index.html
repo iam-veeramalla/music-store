@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Music Store — Fine instruments, worldwide</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="bandhani"></div>
+
+<div class="wrap">
+<nav>
+  <div class="logo" onclick="go('home')"><span class="mark">♪</span> Music Store<small>Fine instruments · worldwide</small></div>
+  <div class="links" id="nav-links"></div>
+  <div class="right">
+    <input class="search" id="search" placeholder="Search instruments…">
+    <button class="cart-btn" onclick="toggleCart()">Cart <em id="cart-count">0</em></button>
+  </div>
+</nav>
+</div>
+
+<main id="view"></main>
+
+<div class="bandhani"></div>
+<div class="wrap"><footer>
+  <div><div class="logo"><span class="mark">♪</span> Music Store</div>Instruments with lineage.</div>
+  <div class="foot-right">frontend · api-gateway · catalog · inventory · cart · order · payment · shipping<br>
+  Demo store for the Dash0 Kubernetes operator — auto-instrumented, zero code changes.</div>
+</footer></div>
+
+<!-- cart drawer -->
+<div class="drawer-backdrop" id="backdrop" onclick="toggleCart()"></div>
+<aside class="drawer" id="drawer">
+  <h3>Your cart</h3>
+  <div id="cart-items"></div>
+  <div class="total">Subtotal<b id="cart-total">$0.00</b></div>
+  <button class="cta full" onclick="go('checkout'); toggleCart()">Checkout</button>
+</aside>
+
+<div class="toast" id="toast"></div>
+<script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+  namespace: music-shop
+  labels:
+    app.kubernetes.io/name: api-gateway
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/part-of: music-store
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app.kubernetes.io/name: api-gateway }
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: api-gateway
+        app.kubernetes.io/version: "1.0.0"
+        app.kubernetes.io/part-of: music-store
+    spec:
+      containers:
+        - name: api-gateway
+          image: musicshop/api-gateway:1.0.0
+          imagePullPolicy: IfNotPresent
+          ports: [{ containerPort: 3000 }]
+          env:
+            - name: CATALOG_SERVICE_URL
+              value: http://catalog-service:8081
+            - name: INVENTORY_SERVICE_URL
+              value: http://inventory-service:8082
+            - name: CART_SERVICE_URL
+              value: http://cart-service:8083
+            - name: ORDER_SERVICE_URL
+              value: http://order-service:8084
+            - name: SHIPPING_SERVICE_URL
+              value: http://shipping-service:8086
+          readinessProbe:
+            httpGet: { path: /healthz, port: 3000 }
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests: { cpu: 50m, memory: 128Mi }
+            limits: { memory: 512Mi }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-gateway
+  namespace: music-shop
+spec:
+  selector: { app.kubernetes.io/name: api-gateway }
+  ports: [{ port: 3000 }]

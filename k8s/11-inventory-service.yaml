@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-service
+  namespace: music-shop
+  labels:
+    app.kubernetes.io/name: inventory-service
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/part-of: music-store
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app.kubernetes.io/name: inventory-service }
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: inventory-service
+        app.kubernetes.io/version: "1.0.0"
+        app.kubernetes.io/part-of: music-store
+    spec:
+      containers:
+        - name: inventory-service
+          image: musicshop/inventory-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          ports: [{ containerPort: 8082 }]
+
+          readinessProbe:
+            httpGet: { path: /healthz, port: 8082 }
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests: { cpu: 50m, memory: 128Mi }
+            limits: { memory: 512Mi }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inventory-service
+  namespace: music-shop
+spec:
+  selector: { app.kubernetes.io/name: inventory-service }
+  ports: [{ port: 8082 }]

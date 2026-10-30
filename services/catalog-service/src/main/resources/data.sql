@@ -1,0 +1,20 @@
+INSERT INTO products (id, name, category, subtitle, price_cents, icon) VALUES
+ (1,  'Fender Player Stratocaster', 'Guitars',    'Sunburst, maple neck',        84900, 'guitar'),
+ (2,  'Gibson Les Paul Studio',     'Guitars',    'Ebony finish',               159900, 'guitar'),
+ (3,  'Yamaha C40 Classical',       'Guitars',    'Nylon strings, full size',    14900, 'guitar'),
+ (4,  'Nord Stage 4 - 88',          'Keys',       'Fully weighted, triple engine', 529900, 'keys'),
+ (5,  '3.5 Octave Stage Harmonium', 'Keys',       'Portable, coupler function',  26500, 'keys'),
+ (6,  'Roland FP-30X',              'Keys',       'Digital piano, Bluetooth',    74900, 'keys'),
+ (7,  'Ludwig Classic Maple Kit',   'Percussion', '5-piece shell pack',         274900, 'drums'),
+ (8,  'Professional Tabla Set',     'Percussion', 'Sheesham dayan, copper bayan', 17200, 'tabla'),
+ (9,  'Meinl Byzance Cymbal Set',   'Percussion', '14/16/20 inch',              119900, 'drums'),
+ (10, 'Yamaha AV5 Violin',          'Strings',    '4/4 outfit with case',       118000, 'violin'),
+ (11, 'Handcrafted Concert Sitar',  'Strings',    'Tun wood, full decoration',   58500, 'sitar'),
+ (12, 'Cordoba Mini II Ukulele',    'Strings',    'Mahogany top',                 9900, 'guitar'),
+ (13, 'Bamboo Concert Flute E',     'Winds',      'Hand-tuned bamboo, bass E',    4600, 'flute'),
+ (14, 'Yamaha YAS-280 Alto Sax',    'Winds',      'Gold lacquer, student pro',  129900, 'sax'),
+ (15, 'Hohner Special 20 Harmonica','Winds',      'Key of C',                     5500, 'flute'),
+ (16, 'Shure SM58 Microphone',      'Studio',     'Dynamic vocal mic',            9900, 'mic'),
+ (17, 'Focusrite Scarlett 2i2',     'Studio',     '4th gen USB interface',       19900, 'mic'),
+ (18, 'KRK Rokit 5 Pair',           'Studio',     'Active studio monitors',      37800, 'mic')
+ON CONFLICT (id) DO NOTHING;
