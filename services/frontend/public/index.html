@@ -4,6 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Music Store — Fine instruments, worldwide</title>
+<script>
+// Apply theme before first paint to avoid a light flash.
+(function () {
+  var saved = localStorage.getItem('theme');
+  var theme = (saved === 'light' || saved === 'dark')
+    ? saved
+    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', theme);
+})();
+</script>
 <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -16,6 +26,7 @@
   <div class="right">
     <input class="search" id="search" placeholder="Search instruments…">
     <button class="cart-btn" onclick="toggleCart()">Cart <em id="cart-count">0</em></button>
+    <button class="theme-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
   </div>
 </nav>
 </div>

@@ -78,6 +78,30 @@ async function removeItem(pid) {
 
 function toggleCart() { document.body.classList.toggle('cart-open'); }
 
+/* ---------- theme ---------- */
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  const btn = document.getElementById('theme-toggle');
+  if (btn) {
+    btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+}
+
+function toggleTheme() {
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('theme', next);
+  applyTheme(next);
+}
+
+// Follow OS preference while the user has not made an explicit choice.
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+  if (!localStorage.getItem('theme')) applyTheme(e.matches ? 'dark' : 'light');
+});
+
+applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+
 /* ---------- rendering ---------- */
 
 function stockBadge(pid) {
